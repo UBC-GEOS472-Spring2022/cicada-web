@@ -1,1 +1,461 @@
-File to add folder
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Mapbox Storytelling</title>
+    <meta
+      name="viewport"
+      content="initial-scale=1,maximum-scale=1,user-scalable=no"
+    />
+    <link
+      rel="icon"
+      type="image/x-icon"
+      href="https://raw.githubusercontent.com/mapbox/assembly/publisher-staging/src/svgs/mapbox.svg"
+    />
+    <script src="https://api.tiles.mapbox.com/mapbox-gl-js/v2.7.0/mapbox-gl.js"></script>
+    <link
+      href="https://api.tiles.mapbox.com/mapbox-gl-js/v2.7.0/mapbox-gl.css"
+      rel="stylesheet"
+    />
+    <script src="https://unpkg.com/intersection-observer@0.12.0/intersection-observer.js"></script>
+    <script src="https://unpkg.com/scrollama"></script>
+    <!-- styles come from mapbox storytelling template, plus added styles for the legend/legend elements and pop-ups -->
+    <style>
+       body {
+           margin:0; 
+           padding:0;
+           font-family: sans-serif; 
+       }
+       a, a:hover, a:visited {
+           color: #0071bc;
+       }
+       #map {
+           top:0;
+           height: 100vh;
+           width:100vw;
+           position: fixed;
+       }
+       #header {
+           margin: auto;
+           width: 100%;
+           position: relative;
+           z-index: 5;
+       }
+       #header h1, #header h2, #header p {
+           margin: 0;
+           padding: 2vh 2vw;
+           text-align: center;
+       }
+       #footer {
+           width: 100%;
+           min-height: 5vh;
+           padding-top: 2vh;
+           padding-bottom: 2vh;
+           text-align: center;
+           line-height: 25px;
+           font-size: 13px;
+           position: relative;
+           z-index: 5;
+       }
+      .legend {
+           background-color: #fafafa;
+           border-radius: 3px;
+           bottom: 30px;
+           box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+           font: 12px/20px 'Helvetica Neue', Arial, Helvetica, sans-serif;
+           padding: 10px;
+           position: fixed;
+           right: 10px;
+           z-index: 0;
+       }
+       .legend p {
+           margin: 0 0 1px;
+           font-weight: bold;
+       }
+       .legend div span {
+           border-radius: 50%;
+           display: inline-block;
+           background-color: #9fcb01;
+           opacity: 0.75;
+           border-radius: 100%;
+           border-style: solid;
+           border-width: 1px;
+           height: 8px;
+           margin-right: 5px;
+           width: 8px;
+       }
+       .mapboxgl-popup {
+          max-width: 400px;
+          height: 20px;
+          padding: 3px;
+          font: 12px/20px 'Helvetica Neue', Arial, Helvetica, sans-serif;
+    } 
+      .mapboxgl-popup-content p {
+          margin: 0;
+          padding: 10px;
+          border-radius: 3px 3px 0 0;
+          margin-top: -15px;
+          margin-left: -10px;
+          margin-bottom:-20px;
+        
+        }
+       #features {
+           padding-top: 10vh;
+           padding-bottom: 10vh;
+       }
+       .hidden {
+           visibility: hidden;
+       }
+       .centered {
+           width: 50vw;
+           margin: 0 auto;
+       }
+       .lefty {
+           width: 33vw;
+           margin-left: 5vw;
+       }
+       .righty {
+           width: 33vw;
+           margin-left: 62vw;
+       }
+       .fully {
+           width: 100%;
+           margin: auto;
+       }
+       .light {
+           color: #444;
+           background-color: #fafafa;
+       }
+       .dark {
+           color: #fafafa;
+           background-color: #444;
+       }
+       .step {
+           padding-bottom: 50vh;
+           /* margin-bottom: 10vh; */
+           opacity: 0.25;
+       }
+       .step.active {
+           opacity: 0.9;
+       }
+
+       .step div {
+           padding:  20px 20px;
+           line-height: 25px;
+           font-size: 13px;
+       }
+
+       .step img {
+           width: 100%;
+       }
+
+       @media (max-width: 750px) {
+           .centered, .lefty, .righty, .fully {
+               width: 90vw;
+               margin: 0 auto;
+           }
+       }
+
+       /* Fix issue on mobile browser where scroll breaks  */
+       .mapboxgl-canvas-container.mapboxgl-touch-zoom-rotate.mapboxgl-touch-drag-pan,
+       .mapboxgl-canvas-container.mapboxgl-touch-zoom-rotate.mapboxgl-touch-drag-pan .mapboxgl-canvas {
+           touch-action: unset;
+       }
+    </style>
+  </head>
+  <body>
+    
+    <!-- create the elements of the storytelling map -->
+    <div id="map"></div>
+    <div id="story"></div>
+    <div id="title" class="map-overlay">
+      <h3>Periodical Cicada Emergences</h3>
+    </div>
+
+    <!-- create a legend element containing text, four circle symbols, and a button to stop audio -->
+    <div id="legend" class="legend">
+      <p>Click to hear numbers</p>
+      <p> of cicada emergences</p>
+      <p> per county</p>
+      <div><span id="legend-circle-1" style="height: 8px; width: 8px" onclick="play(1)"></span>1 emergence </div>
+      <div><span id="legend-circle-2" style="height: 11.3px; width: 11.3px" onclick="play(2)"></span>2 emergences</div>
+      <div><span id="legend-circle-3" style="height: 13.85px; width: 13.85px" onclick="play(3)"></span>3 emergences</div>
+      <div><span id="legend-circle-4" style="height: 16px; width: 16px" onclick="play(4)"></span>4 emergences</div>
+      <br>
+      <button type="button" onclick="play(0)">Stop sound</button> <!-- calls the function that plays audio in order to pause audio -->
+    </div>
+
+    <audio loop id="cicadaChorus" 
+           src="https://upload.wikimedia.org/wikipedia/commons/7/7a/A_Magicicada_chorus_containing_M._septendecim%2C_M._cassini%2C_and_M._septendecula_-_pone.0000892.s004.oga">
+    </audio> 
+    <!-- alternative audio of individual cicada (Magicicada cassini)
+    <audio loop id="cicadaChorus" 
+src="https://upload.wikimedia.org/wikipedia/commons/d/de/Calling_song_of_Magicicada_cassini_-_pone.0000892.s002.oga"></audio>
+    -->
+    
+    <!-- script from Mapbox storytelling template with layer opacities and text for each chapter -->
+    <script src="./config.js"></script> 
+    
+    <!-- streamlined version of Mapbox storytelling script below, with additions of pop-ups and playing audio -->
+    <script>
+      
+      var initLoad = true;
+      
+      // options for mapping layers from mapbox style
+      var layerTypes = {
+        fill: ["fill-opacity"],
+        line: ["line-opacity"],
+        circle: ["circle-opacity", "circle-stroke-opacity"],
+        symbol: ["icon-opacity", "text-opacity"],
+        raster: ["raster-opacity"],
+        "fill-extrusion": ["fill-extrusion-opacity"],
+        heatmap: ["heatmap-opacity"],
+      };
+
+      // options for how story text can be positioned 
+      var alignments = {
+        left: "lefty",
+        center: "centered",
+        right: "righty",
+        full: "fully",
+      };
+
+      // style layer appropriately and set opacity for each chapter's specifications
+      function getLayerPaintType(layer) {
+        var layerType = map.getLayer(layer).type;
+        return layerTypes[layerType];
+      }
+
+      function setLayerOpacity(layer) {
+        var paintProps = getLayerPaintType(layer.layer);
+        paintProps.forEach(function (prop) {
+          var options = {};
+          if (layer.duration) {
+            var transitionProp = prop + "-transition";
+            options = { duration: layer.duration };
+            map.setPaintProperty(layer.layer, transitionProp, options);
+          }
+          map.setPaintProperty(layer.layer, prop, layer.opacity, options);
+        });
+      }
+
+      // the following code puts information from config.js into the elements on the html page where the user can see them
+      var story = document.getElementById("story");
+      var features = document.createElement("div");
+      features.setAttribute("id", "features");
+
+      var header = document.createElement("div");
+
+      if (config.title) {
+        var titleText = document.createElement("h1");
+        titleText.innerText = config.title;
+        header.appendChild(titleText);
+      }
+
+      if (config.subtitle) {
+        var subtitleText = document.createElement("h2");
+        subtitleText.innerText = config.subtitle;
+        header.appendChild(subtitleText);
+      }
+
+      if (config.byline) {
+        var bylineText = document.createElement("p");
+        bylineText.innerText = config.byline;
+        header.appendChild(bylineText);
+      }
+
+      if (header.innerText.length > 0) {
+        header.classList.add(config.theme);
+        header.setAttribute("id", "header");
+        story.appendChild(header);
+      }
+
+      config.chapters.forEach((record, idx) => {
+        var container = document.createElement("div");
+        var chapter = document.createElement("div");
+
+        if (record.title) {
+          var title = document.createElement("h3");
+          title.innerText = record.title;
+          chapter.appendChild(title);
+        }
+
+
+        if (record.description) {
+          var story = document.createElement("p");
+          story.innerHTML = record.description;
+          chapter.appendChild(story);
+        }
+        
+        if (record.image) {
+          var image = new Image();
+          image.src = record.image;
+          chapter.appendChild(image);
+        }
+         if (record.caption) {
+          var story = document.createElement("p");
+          story.innerHTML = record.caption;
+          chapter.appendChild(story);
+        }
+
+        container.setAttribute("id", record.id);
+        container.classList.add("step");
+        if (idx === 0) {
+          container.classList.add("active");
+        }
+
+        chapter.classList.add(config.theme);
+        container.appendChild(chapter);
+        container.classList.add(alignments[record.alignment] || "centered");
+        if (record.hidden) {
+          container.classList.add("hidden");
+        }
+        features.appendChild(container);
+      });
+
+      story.appendChild(features);
+
+      var footer = document.createElement("div");
+
+      if (config.footer) {
+        var footerText = document.createElement("p");
+        footerText.innerHTML = config.footer;
+        footer.appendChild(footerText);
+      }
+
+      if (footer.innerText.length > 0) {
+        footer.classList.add(config.theme);
+        footer.setAttribute("id", "footer");
+        story.appendChild(footer);
+      }
+
+      // add the map and mapbox style in the scrollytelling template
+      mapboxgl.accessToken = config.accessToken;
+
+      const transformRequest = (url) => {
+        const hasQuery = url.indexOf("?") !== -1;
+        const suffix = hasQuery
+          ? "&pluginName=scrollytellingV2"
+          : "?pluginName=scrollytellingV2";
+        return {
+          url: url + suffix,
+        };
+      };
+
+      var map = new mapboxgl.Map({
+        container: "map",
+        style: config.style,
+        center: config.chapters[0].location.center,
+        zoom: config.chapters[0].location.zoom,
+        bearing: config.chapters[0].location.bearing,
+        pitch: config.chapters[0].location.pitch,
+        interactive: false,
+        transformRequest: transformRequest,
+        projection: config.projection,
+      });
+      
+      
+      // this function to play/pause audio is called whenever the user clicks a point or the stop audio button
+      function play(number_broods) {
+        var audio = document.getElementById("cicadaChorus");
+        if (number_broods>0) { 
+          // if the user clicks on a circle (which gives the function values 1-4)
+        if (number_broods === 1) {
+          audio.volume = 0.1;
+        } else if (number_broods === 2) {
+          audio.volume = 0.25;
+        } else if (number_broods === 3) {
+          audio.volume = .5;
+        } else if (number_broods === 4) {
+          audio.volume = 1;
+        }
+        audio.play();
+      } else if (number_broods===0) {
+        // clicking the stop sound button feeds 0 into this function to pause the audio
+        audio.pause();
+      }}
+      
+      
+      if (config.showMarkers) {
+        var marker = new mapboxgl.Marker({ color: config.markerColor });
+        marker.setLngLat(config.chapters[0].location.center).addTo(map);
+      }
+
+      // instantiate the scrollama
+      var scroller = scrollama();
+
+      
+      map.on("load", function () {
+        // creates an event listener on the cicada points
+        map.on("click", (event) => {
+          const point = map.queryRenderedFeatures(event.point, {
+            layers: ["cicada-county-all"],
+          });
+          if (!point.length) {
+            return; // if the click was not on a cicada point, returns nothing and exits map.on('click') function
+          }
+          const pointClicked = point[0];
+          play(pointClicked.properties.MULT_BROOD); // calls audio function with the number of broods (1,2,3 or 4) as a parameter
+
+        
+          // create the pop-ups with the most important info about the data, and add to map
+          const popup = new mapboxgl.Popup({ offset: [0, -5] })
+            .setLngLat(pointClicked.geometry.coordinates)
+            .setHTML(
+              `<p>County: ${pointClicked.properties.NAME}</p>
+                `
+            )
+            .addTo(map);
+        });
+       
+        // setup the instance, pass callback functions
+        scroller
+          .setup({
+            step: ".step",
+            offset: 0.5,
+            progress: true,
+          })
+          .onStepEnter(async (response) => {
+            var chapter = config.chapters.find(
+              (chap) => chap.id === response.element.id
+            );
+            response.element.classList.add("active");
+            map[chapter.mapAnimation || "flyTo"](chapter.location);
+            
+            if (config.showMarkers) {
+              marker.setLngLat(chapter.location.center);
+            }
+            if (chapter.onChapterEnter.length > 0) {
+              chapter.onChapterEnter.forEach(setLayerOpacity);
+            }
+            if (chapter.callback) {
+              window[chapter.callback]();
+            }
+            if (chapter.rotateAnimation) {
+              map.once("moveend", () => {
+                const rotateNumber = map.getBearing();
+                map.rotateTo(rotateNumber + 180, {
+                  duration: 30000,
+                  easing: function (t) {
+                    return t;
+                  },
+                });
+              });
+            }
+          })
+          .onStepExit((response) => {
+            var chapter = config.chapters.find(
+              (chap) => chap.id === response.element.id
+            );
+            response.element.classList.remove("active");
+            if (chapter.onChapterExit.length > 0) {
+              chapter.onChapterExit.forEach(setLayerOpacity);
+            }
+          });
+      });
+
+      // setup resize event
+      window.addEventListener("resize", scroller.resize);
+    </script>
+  </body>
+</html>
