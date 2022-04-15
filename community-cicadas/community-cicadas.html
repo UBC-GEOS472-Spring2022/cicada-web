@@ -9,7 +9,7 @@
     <script src="https://unpkg.com/aframe-environment-component@1.0.0/dist/aframe-environment-component.min.js"></script>
     <script src="./move.js"></script>
     
-    <!--Attempt to code interactivity (+ lines 51 & 80): clicking the sign to make bugs move from 'underground' into the air-->
+    <!--Attempt to code interactivity (+ lines 51 & 81): clicking the sign to make bugs move from 'underground' into the air: failed. Clicking the sign works (logs 'click' in the console) but does not start animation-->
     <script> function startAni() {
         var start = document.getElementById("bugs");
           start.emit("startAnimation");
@@ -66,7 +66,8 @@
                    position="-0.1 0 -2.5"
                    height="2.3"
                    width="4.8"
-                   text="value: Brood X emergences in a community of southern Delaware County, Ohio, United States
+                   text="value: Representation of recorded Brood X emergences in a community of southern Delaware County, Ohio, United States
+                         (Model is NOT TO SCALE)
                           
                          To explore:
                          click & drag to pan
