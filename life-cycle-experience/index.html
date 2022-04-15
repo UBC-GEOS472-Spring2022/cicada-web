@@ -1,0 +1,722 @@
+<html>
+  <head>
+    <script src="https://aframe.io/releases/0.8.2/aframe.min.js"></script>
+    <script src="https://unpkg.com/aframe-animation-component@^5.1.2/dist/aframe-animation-component.min.js"></script>
+    <script src="public/js/sphereexpand.js"></script>
+    <script src="public/js/backhome.js"></script>
+    <script src="public/js/examplefunctions.js"></script>
+    <script src="https://unpkg.com/aframe-event-set-component@^4.0.0/dist/aframe-event-set-component.min.js"></script>
+    
+    <!--Functions-->
+          <script>
+            function startAni1() {
+            var start1 = document.getElementById("maggot1");
+              start1.emit("startAnimation");
+              console.log('click1');
+            var start2 = document.getElementById("maggot2");
+              start2.emit("startAnimation");
+              console.log('click2');
+            var start3 = document.getElementById("maggot3");
+              start3.emit("startAnimation");
+              console.log('click3');
+            }
+          </script>
+    
+          <script>
+            function startAni2() {
+            var start1 = document.getElementById("stg2maggot1");
+              start1.emit("startAnimation");
+              console.log('click1');
+            var start2 = document.getElementById("stg2maggot2");
+              start2.emit("startAnimation");
+              console.log('click2');
+            var start3 = document.getElementById("stg2maggot3");
+              start3.emit("startAnimation");
+              console.log('click2');
+            }
+          </script>
+    
+          <script>
+            function startAni3() {
+            var start1 = document.getElementById("stg3maggot1");
+              start1.emit("startAnimation");
+              console.log('click1');
+            var start2 = document.getElementById("stg3maggot2");
+              start2.emit("startAnimation");
+              console.log('click2');
+            var start3 = document.getElementById("stg3maggot3");
+              start3.emit("startAnimation");
+              console.log('click2');
+            }
+          </script>
+    
+          <script>
+            function startAni4() {
+            var start1 = document.getElementById("stg4maggot1");
+              start1.emit("startAnimation");
+              console.log('click1');
+            var start2 = document.getElementById("stg4maggot2");
+              start2.emit("startAnimation");
+              console.log('click2');
+            var start3 = document.getElementById("stg4maggot3");
+              start3.emit("startAnimation");
+              console.log('click2');
+            }
+          </script>
+    
+          <script>   
+            AFRAME.registerComponent('disappear', {       
+
+            init: function () {    
+              let disappearfunc = () => {
+                this.el.setAttribute("visible", false);
+              };
+
+              this.el.addEventListener('click', disappearfunc);
+            }  
+
+            });
+         </script>
+  </head>
+
+  <body>
+    <a-scene>
+      
+      <!--ASSETS-->
+      <a-assets>
+        <img
+          id="starsky"
+          src="https://cdn.glitch.global/6ad83d9b-b9be-4bf4-b6b6-373e5cfc46b5/blue.png?v=1648918900775"
+        />
+        <a-asset-item
+          id="trees"
+          response-type="arraybuffer"
+          src="https://cdn.glitch.global/6ad83d9b-b9be-4bf4-b6b6-373e5cfc46b5/trees-updated.glb?v=1649034886687"
+        ></a-asset-item>
+        <a-asset-item
+          id="treelog"
+          response-type="arraybuffer"
+          src="https://cdn.glitch.global/6ad83d9b-b9be-4bf4-b6b6-373e5cfc46b5/anothaone.glb?v=1649114303509"
+        ></a-asset-item>
+        <a-asset-item
+          id="roots"
+          response-type="arraybuffer"
+          src="https://cdn.glitch.global/6ad83d9b-b9be-4bf4-b6b6-373e5cfc46b5/roots.glb?v=1648922054186"
+        ></a-asset-item>
+        <a-asset-item
+          id="bigbush"
+          response-type="arraybuffer"
+          src="https://cdn.glitch.me/6ad83d9b-b9be-4bf4-b6b6-373e5cfc46b5/bigbush-model.glb?v=1648927207217"
+        ></a-asset-item>
+        <a-asset-item
+          id="leafbush"
+          response-type="arraybuffer"
+          src="https://cdn.glitch.global/6ad83d9b-b9be-4bf4-b6b6-373e5cfc46b5/bush-model.glb?v=1648926966244"
+        ></a-asset-item>
+        <a-asset-item
+          id="daisy"
+          response-type="arraybuffer"
+          src="https://cdn.glitch.global/6ad83d9b-b9be-4bf4-b6b6-373e5cfc46b5/flowers-model.glb?v=1648926934244"
+        ></a-asset-item>
+        <a-asset-item
+          id="grass"
+          response-type="arraybuffer"
+          src="https://cdn.glitch.global/6ad83d9b-b9be-4bf4-b6b6-373e5cfc46b5/grass-model.glb?v=1648927696703"
+        ></a-asset-item>
+        <a-asset-item
+          id="otherroots"
+          response-type="arraybuffer"
+          src="https://cdn.glitch.global/6ad83d9b-b9be-4bf4-b6b6-373e5cfc46b5/root-model.glb?v=1648926944462"
+        ></a-asset-item>
+        <a-asset-item
+          id="whiteroot"
+          response-type="arraybuffer"
+          src="https://cdn.glitch.global/6ad83d9b-b9be-4bf4-b6b6-373e5cfc46b5/white-root.glb?v=1649025708146"
+        ></a-asset-item>
+        <img id="cicada" src="https://cdn.glitch.global/6ad83d9b-b9be-4bf4-b6b6-373e5cfc46b5/Cicada%20image.jpg?v=1650044367724">
+        <a-asset-item
+          id="noise"
+          response-type="arraybuffer"
+          src="https://cdn.glitch.me/6ad83d9b-b9be-4bf4-b6b6-373e5cfc46b5/1%20Hour%20Nature%20Sounds.mp3?v=1650047653744"
+        ></a-asset-item>
+      </a-assets>
+
+      <!--Settings-->
+      <a-entity
+        id="camera"
+        position="0 1.6 0"
+        camera
+        look-controls
+        wasd-controls>
+            <a-entity cursor="rayOrigin: mouse"></a-entity>
+      </a-entity>
+
+      <a-entity laser-controls="hand:right"></a-entity>
+      <a-sky id="sky" src="#starsky"></a-sky>
+      <a-sound src="#noise" autoplay="true" on></a-sound>
+      
+
+      <!--Overall Scene Set-->
+      <a-entity id="architecture" class="homeworld">
+        <a-plane
+          id="ceiling"
+          position="0 0 0"
+          scale="1 1 1"
+          width="50"
+          height="50"
+          rotation="90 0 0"
+          material="roughness:0; transparent: true; opacity: .4; shader: standard; 
+           color: #2e802f; side:double;"
+        ></a-plane>
+      </a-entity>
+      
+
+      
+      <!--FIRST STAGE and THIRD STAGE TREES SET-->          
+      <a-entity id="first-and-third-stage" class="homeworld">
+        
+        <a-gltf-model
+          id="bigtrees"
+          position="0 0 -7.16"
+          scale="0.05 0.05 0.05"
+          src="#trees"
+        ></a-gltf-model>
+        
+      </a-entity>
+      
+      <!--FIRST STAGE: Cicada eggs planted in tree and maggots travel to roots-->
+      <a-entity id="first-stage" class="homeworld">
+        
+        <a-gltf-model
+            id="root1"
+            position="1.446 -3.02 -11.63"
+            scale="27 27 27"
+            rotation="0 60 0"
+            src="#roots">
+          
+          <!--Click box to make animation work-->
+          <a-box 
+                 id="stage1box"
+                 color="#FACC49" 
+                 depth="2" 
+                 height="1" 
+                 width="0.2"
+                 rotation="0 50 0"
+                 scale="0.05 0.05 0.05"
+                 position="-0.08 0.200 -0.165"
+                 onclick="startAni1()">
+             <a-text 
+                   value="STAGE 1"
+                   position="-0.25 0 -0.514"
+                   rotation="0 -90 0"
+                   wrap-count="20"
+                   width="1"
+                   depth="2"
+                   height="3.5"
+                   color="black"
+                   scale="3 3 3">
+              </a-text>
+          </a-box>
+          
+        <!--Maggots-->
+            <a-sphere
+              id="maggot1"        
+              position="-0.01 0.342 -0.079"
+              scale="0.005 0.005 0.005"
+              color="#feedde"
+              visible="true"
+              animation__st1pt1="property:position; startEvents: startAnimation; from: -0.01 0.342 -0.079; to:-0.01 -0.00005 -0.079; dur: 10000; loop:false;"
+              animation__st1pt2="property:position; startEvents: startAnimation; from:-0.01 -0.00005 -0.079; to:-0.01 -0.00009 -0.06; delay:10000; dur: 1000; loop:true; dir: alternate"
+            ></a-sphere>
+          
+            <a-sphere
+              id="maggot2"        
+              position="-0.0001 0.324 -0.062"
+              scale="0.005 0.005 0.005"
+              color="#feedde"
+              visible="true"
+              animation__st1pt1="property:position; startEvents: startAnimation; from: -0.02 0.309 -0.046; to:-0.02 -0.00005 -0.046; dur: 10000; loop:false;"
+              animation__st1pt2="property:position; startEvents: startAnimation; from:-0.02 -0.00005 -0.046; to:0.004 -0.00005 -0.021; delay:10000; dur: 3000; loop:true; dir: alternate"
+            ></a-sphere>
+          
+           <a-sphere
+              id="maggot3"        
+              position="-0.02 0.342 -0.031"
+              scale="0.005 0.005 0.005"
+              color="#feedde"
+              visible="true"
+              animation__st1pt1="property:position; startEvents: startAnimation; from: -0.02 0.342 -0.031; to:-0.02 -0.00005 -0.031; dur: 10000; loop:false;"
+              animation__st1pt2="property:position; startEvents: startAnimation; from:-0.02 -0.00005 -0.031; to:0.03 -0.007 -0.15; delay:10000; dur: 2000; loop:true; dir: alternate"
+            ></a-sphere>
+          
+          <!--Detail Box -->
+          <a-box 
+                 id="stage1box2"
+                 color="#FACC49" 
+                 depth="2.5" 
+                 height="4" 
+                 width="0.2"
+                 rotation="0 180 0"
+                 scale="0.05 0.05 0.05"
+                 position="0.063 0.234 0.087">
+            <a-text 
+                 value="The Beginning."
+                 position="0.199 1.312 0.721"
+                 rotation="0 90 0"
+                 wrap-count="20"
+                 depth="2"
+                 height="3.5"
+                 color="black"
+                 scale="0.4 0.4 0.4">
+            </a-text>
+            <a-text 
+                 value="During their 4-6 weeks above ground, female adult cicadas cut pockets into woody stems after mating, depositing 24-18 eggs. The eggs hatch 6-7 weeks after they are laid. Juvenile cicadas, called nymphs, work their way out of the wood pockets, dropping to the ground and entering the soil."
+                 position="0.198 -0.36 0.929"
+                 rotation="0 90 0"
+                 wrap-count="20"
+                 depth="2"
+                 height="3.5"
+                 color="black"
+                 scale="0.4 0.4 0.4">
+            </a-text>
+          </a-box>
+        
+        </a-gltf-model>
+        
+      </a-entity>
+          
+      
+    <!--SECOND STAGE: Cicada magots worm around roots of plants-->
+      <a-entity id="second-stage" class="homeworld">
+        
+        <a-gltf-model
+          id="bush1"
+          position="14.8 67 0"
+          scale="5 5 5"
+          src="#bigbush"
+        ></a-gltf-model>
+        <a-gltf-model
+          id="whiteroots"
+          position="13.28 -0.2 -1.45"
+          scale="0.7 0.7 0.7"
+          rotation="0 90 0"
+          src="#whiteroot"
+        ></a-gltf-model>
+        <a-gltf-model
+          id="flowers"
+          position="9.210 0.218 0"
+          scale="0.07 0.07 0.07"
+          src="#daisy"
+        ></a-gltf-model>
+        <a-gltf-model
+          id="smallbush"
+          position="9.7 0 -6.252"
+          scale="0.025 0.025 0.025"
+          rotation="0 30 0"
+          src="#leafbush"
+        ></a-gltf-model>
+        <a-gltf-model
+          id="grassy"
+          position="9.161 0 0"
+          scale="0.02 0.02 0.02"
+          src="#grass">
+            <a-gltf-model
+              id="grass2"
+              position="88 0 -406"
+              scale="1 1 1"
+              src="#grass"
+            ></a-gltf-model>
+            <a-gltf-model
+              id="grass3"
+              position="180 0 230"
+              scale="1 1 1"
+              src="#grass"
+            ></a-gltf-model>
+            <a-gltf-model
+              id="grass4"
+              position="-173 0 300"
+              scale="1 1 1"
+              src="#grass"
+            ></a-gltf-model>
+        </a-gltf-model>
+        
+        <!--Click box to make animation work-->
+          <a-box 
+                 id="stage2box"
+                 color="#FACC49" 
+                 depth="2" 
+                 height="1" 
+                 width="0.2"
+                 rotation="0 30 0"
+                 scale="1 1 1"
+                 position="10.56 2.30 -5.282"
+                 onclick="startAni2()">
+                 <a-text 
+                     value="STAGE 2"
+                     position="-0.25 0 -0.514"
+                     rotation="0 -90 0"
+                     wrap-count="20"
+                     width="1"
+                     depth="2"
+                     height="3.5"
+                     color="black"
+                     scale="3 3 3">
+                </a-text>
+         </a-box>
+      
+        <!--Maggots-->
+         <a-sphere
+            id="stg2maggot1"
+            position="11.71 -1.1 -2.9"
+            scale="0.15 0.15 0.15"
+            color="#fdbe85"
+            animation__st2pt1="property:position; startEvents: startAnimation; from:11.71 -1.1 -2.9; to:11.84 -0.88 -2.9; dur: 1000; loop:true; dir: alternate;"
+            animation__st2pt2="property:scale; startEvents: startAnimation; from:0.15 0.15 0.15; to:0.24 0.24 0.24; dur: 10000; loop:false;"
+        ></a-sphere>
+      
+        <a-sphere
+            id="stg2maggot2"
+            position="11.71 -1.02 -1.608"
+            scale="0.15 0.15 0.15"
+            color="#fdbe85"
+            animation__st2pt1="property:position; startEvents: startAnimation; from:11.71 -1.02 -1.608; to:12.83 -0.6 -1.608; dur: 2000; loop:true; dir: alternate;"
+            animation__st2pt2="property:scale; startEvents: startAnimation; from:0.15 0.15 0.15; to:0.24 0.24 0.24; dur: 10000; loop:false;"
+        ></a-sphere>
+        
+        <a-sphere
+            id="stg2maggot3"
+            position="12.59 -1.42 0.28"
+            scale="0.15 0.15 0.15"
+            color="#fdbe85"
+            animation__st2pt1="property:position; startEvents: startAnimation; from:12.59 -1.42 0.28; to:12.0 -0.6 0.28; dur: 1500; loop:true; dir: alternate;"
+            animation__st2pt2="property:scale; startEvents: startAnimation; from:0.15 0.15 0.15; to:0.24 0.24 0.24; dur: 10000; loop:false;"
+        ></a-sphere>
+        
+        
+         <!--Detail Box -->
+          <a-box 
+                 id="stage2box2"
+                 color="#FACC49" 
+                 depth="2.5" 
+                 height="3" 
+                 width="0.2"
+                 rotation="0 -20 0"
+                 scale="1 1 1"
+                 position="10.56 2.826 2.922">
+            <a-text 
+                 value="Digging Below."
+                 position="-0.25 0.914 -0.625"
+                 rotation="0 -90 0"
+                 wrap-count="20"
+                 depth="2"
+                 height="3.5"
+                 color="black"
+                 scale="0.4 0.4 0.4">
+            </a-text>
+            <a-text 
+                 value="Once reaching the soil, the nymphs move around plant roots to feed on the sap. At depths of 2-24 inches the nymphs slowly start to grow. "
+                 position="-0.46 -0.05 -0.903"
+                 rotation="0 -90 0"
+                 wrap-count="20"
+                 depth="2"
+                 height="3.5"
+                 color="black"
+                 scale="0.4 0.4 0.4">
+            </a-text>
+         </a-box>
+        
+      </a-entity>
+      
+      
+      
+      <!--THIRD STAGE: Cicada magots worm around roots of tree-->
+      <a-entity id="third-stage" class="homeworld">
+        
+          <a-gltf-model
+            id="root2"
+            position="0.235 -3.02 10.838"
+            scale="27 27 27"
+            rotation="0 200 0"
+            src="#roots"
+          ></a-gltf-model>
+        
+          <!--Click box to make animation work-->
+          <a-box 
+                 id="stage3box"
+                 color="#FACC49" 
+                 depth="2" 
+                 height="1" 
+                 width="0.2"
+                 rotation="0 120 0"
+                 scale="1 1 1"
+                 position="3.548 2.300 12.731"
+                 onclick="startAni3()">
+                <a-text 
+                     value="STAGE 3"
+                     position="0.154 -0.01 0.548"
+                     rotation="0 90 0"
+                     wrap-count="20"
+                     width="1"
+                     depth="2"
+                     height="3.5"
+                     color="black"
+                     scale="3 3 3">
+                </a-text>
+          </a-box>
+        
+        
+        <!--Maggots-->
+           <a-sphere
+            id="stg3maggot1"
+            position="1.7 -1.50 12.508"
+            scale="0.24 0.24 0.24"
+            color="#fd8d3c"
+            animation__st3pt1="property:position; startEvents: startAnimation; from:1.7 -2.30 12.508; to:1.7 -1.50 12.508; dur: 2000; loop:true; dir: alternate;"
+            animation__st3pt2="property:scale; startEvents: startAnimation; from:0.24 0.24 0.24; to:0.35 0.35 0.35; dur: 10000; loop:false;"
+           ></a-sphere>
+        
+          <a-sphere
+            id="stg3maggot2"
+            position="0.167 -1.62 12.004"
+            scale="0.24 0.24 0.24"
+            color="#fd8d3c"
+            animation__st3pt1="property:position; startEvents: startAnimation; from:0.167 -1.62 12.004; to:0.167 -1.4 12.004; dur: 3000; loop:true; dir: alternate;"
+            animation__st3pt2="property:scale; startEvents: startAnimation; from:0.24 0.24 0.24; to:0.35 0.35 0.35; dur: 10000; loop:false;"        
+           ></a-sphere>
+        
+          <a-sphere
+            id="stg3maggot3"
+            position="-0.74 -2.32 12.004"
+            scale="0.24 0.24 0.24"
+            color="#fd8d3c"
+            animation__st3pt1="property:position; startEvents: startAnimation; from:-0.74 -2.32 12.004; to:-0.74 -1.5 12.004; dur: 1500; loop:true; dir: alternate;"
+            animation__st3pt2="property:scale; startEvents: startAnimation; from:0.24 0.24 0.24; to:0.35 0.35 0.35; dur: 10000; loop:false;"
+           ></a-sphere>
+        
+        
+        <!--Detail Box -->
+          <a-box 
+                 id="stage3box2"
+                 color="#FACC49"  
+                 depth="2.5" 
+                 height="3" 
+                 width="0.2"
+                 rotation="0 -110 0"
+                 scale="1 1 1"
+                 position="-3.16 2.30 12.023">
+            
+            <a-text 
+                 value="Growing."
+                 position="-0.19 1.019 -0.466"
+                 rotation="0 -90 0"
+                 wrap-count="20"
+                 depth="2"
+                 height="3.5"
+                 color="black"
+                 scale="0.4 0.4 0.4">
+            </a-text>
+            <a-text 
+                 value="Over the years, cicadas bore further into stem sap, extracting the sap to construct the liquid walls of its airy house. This extraction only causes slight damage to the plant. At this stage, the cicadas continue to grow."
+                 position="-0.13 -0.22 -0.956"
+                 rotation="0 -90 0"
+                 wrap-count="20"
+                 depth="2"
+                 height="3.5"
+                 color="black"
+                 scale="0.4 0.4 0.4">
+            </a-text>
+        </a-box>
+        
+      </a-entity>
+      
+      
+
+      <!--FORTH STAGE: Cicadas grow from nest-->
+      <a-entity id="forth-stage" class="homeworld">
+        
+        <a-gltf-model
+          id="anothertree"
+          position="-14 -0.1 1.15"
+          scale="25 25 25"
+          rotation="0 -15 0"
+          src="#treelog">
+          <a-gltf-model
+            id="roots4"
+            position="0 0 0"
+            scale="0.1 0.1 0.1"
+            rotation="0 270 0"
+            src="#whiteroot"
+          ></a-gltf-model>
+        </a-gltf-model>
+        
+        
+        <!--Click box to make animation work-->
+          <a-box 
+                 id="stage4box"
+                 color="#FACC49" 
+                 depth="2" 
+                 height="1" 
+                 width="0.2"
+                 rotation="0 210 0"
+                 scale="1 1 1"
+                 position="-11.1 2.300 5.767"
+                 onclick="startAni4()">
+                <a-text 
+                     value="STAGE 4"
+                     position="-0.18 -0.01 -0.589"
+                     rotation="0 -90 0"
+                     wrap-count="20"
+                     width="1"
+                     depth="2"
+                     height="3.5"
+                     color="black"
+                     scale="3 3 3">
+                </a-text>
+          </a-box>
+        
+        <!--Maggots-->
+          <a-sphere
+            id="stg4maggot1"
+            position="-10.6 -2.61 7.012"
+            scale="0.35 0.35 0.35"
+            color="#d94701"
+            animation__st4pt1="property:position; startEvents: startAnimation; from:-10.6 -2.61 7.012; to:-13.6 -1.3 7.012; dur: 3000; loop:true; dir: alternate;"
+            animation__st4pt2="property:scale; startEvents: startAnimation; from:0.35 0.35 0.35; to:0.42 0.42 0.42; dur: 10000; loop:false;"
+            animation__st4pt3="property:position; startEvents:startAnimation; delay:11000; from: -13.6 -1.3 7.012; to: -13.6 8 7.012; dur: 5000; loop:false;"
+            animation__st4pt4="property:position; startEvents:startAnimation; delay:16000; from: -13.6 8 7.012; to: -12.6 8 7.012; dir: alternate; loop: true;"
+           ></a-sphere>
+        
+          <a-sphere
+            id="stg4maggot2"
+            position="-8.20 -3.76 3.590"
+            scale="0.35 0.35 0.35"
+            color="#d94701"
+            animation__st4pt1="property:position; startEvents: startAnimation; from:-8.20 -3.76 3.590; to:-10.1 -2.5 3.199; dur: 1750; loop:true; dir: alternate;"
+            animation__st4pt2="property:scale; startEvents: startAnimation; from:0.35 0.35 0.35; to:0.42 0.42 0.42; dur: 10000; loop:false;"
+            animation__st4pt3="property:position; startEvents:startAnimation; delay:12000; from: -10.1 -2.5 3.199; to: -10.1 6 3.199; dur: 5000; loop:false;"
+            animation__st4pt4="property:position; startEvents:startAnimation; delay:17000; from: -10.1 6 3.199; to: -10.1 6 2; dir: alternate; loop: true;"
+           ></a-sphere>
+        
+          <a-sphere
+            id="stg4maggot3"
+            position="-9 -3.87 -4.858"
+            scale="0.35 0.35 0.35"
+            color="#d94701"
+            animation__st4pt1="property:position; startEvents: startAnimation; from:-9 -3.87 -4.858; to:-10.4 -2.6 -3.33; dur: 2000; loop:true; dir: alternate;"
+            animation__st4pt2="property:scale; startEvents: startAnimation; from:0.35 0.35 0.35; to:0.42 0.42 0.42; dur: 10000; loop:false;"
+            animation__st4pt3="property:position; startEvents:startAnimation; delay:10000; from: -10.4 -2.6 -3.33; to: -10.4 10 -3.33; dur: 5000; loop:false;"
+            animation__st4pt4="property:position; startEvents:startAnimation; delay:15000; from: -10.4 10 -3.33; to: -11.4 10 -2.33; dir: alternate; loop: true;"
+           ></a-sphere>
+        
+        <!--Details Box -->
+          <a-box 
+                 id="stage4box2"
+                 color="#FACC49" 
+                 depth="2.5" 
+                 height="4.5" 
+                 width="0.2"
+                 rotation="0 -20 0"
+                 scale="1 1 1"
+                 position="-11.6 3.010 -3.612">
+            <a-text 
+                 value="Emergence."
+                 position="0.153 1.809 0.518"
+                 rotation="0 90 0"
+                 wrap-count="20"
+                 depth="2"
+                 height="3.5"
+                 color="black"
+                 scale="0.4 0.4 0.4">
+            </a-text>
+            <a-text 
+                 value="Nearing the end of their unground growth, cicadas move to an inch of soil beneath the earth’s surface. Once the soil temperatures warm to roughly 18 degrees C the cicadas will emerge, which is often between the months of May and September depending on specific broods. After emerging they shed their nymphal exoskeleton, wait until their adult exoskeleton hardens, and then start to fly, searching for mates. "
+                 position="0.138 -0.22 0.953"
+                 rotation="0 90 0"
+                 wrap-count="20"
+                 depth="2"
+                 height="4"
+                 color="black"
+                 scale="0.4 0.4 0.4">
+            </a-text>
+        </a-box>
+        
+      </a-entity>
+
+      <!--FIFTH STAGE: Model of Ciada-->
+      <a-entity id="bug1" class="homeworld">
+        <a-image
+           id="cicadapic"
+           position="-9.42 3.061 -6.433"
+           src="#cicada"
+           transparent="false"
+           rotation=" 0 50 0"
+           width="8"
+           height="6.23"
+           scale="0.5 0.5 0.5"
+        ></a-image>
+         
+        
+      </a-entity>
+      
+      
+      <!--HOME PAGE: Instructions and Click to Disappear-->
+      <a-entity disappear>
+          <a-box 
+                 id="homebox"
+                 color="#FACC49" 
+                 depth="3" 
+                 height="3" 
+                 width="0.2"
+                 rotation="0 90 0"
+                 position="0 1.5 -0.8"
+          >
+              <a-text 
+                 value="Life Cycle of the Cicada."
+                 position="-0.10 0.449 0"
+                 rotation="0 -90 0"
+                 align="center"
+                 wrap-count="20"
+                 depth="2"
+                 height="3.5"
+                 color="black"
+                 scale="0.3 0.3 0.3">
+              </a-text>
+              <a-text 
+                 value="Press each STAGE button to begin lifecycle segment."
+                 position="-0.10 0.201 0"
+                 rotation="0 -90 0"
+                 align="center"
+                 wrap-count="30"
+                 depth="2"
+                 height="3.5"
+                 color="black"
+                 scale="0.2 0.2 0.2">
+              </a-text>
+              <a-text 
+                 value="Move around using 'W' as forward, 'A' as left, 'S' as backward, and 'D' as right."
+                 position="-0.10 -0.03 0"
+                 rotation="0 -90 0"
+                 align="center"
+                 wrap-count="30"
+                 depth="2"
+                 height="3.5"
+                 color="black"
+                 scale="0.2 0.2 0.2">
+              </a-text>
+              <a-text 
+                 value="Click HERE to begin."
+                 position="-0.10 -0.25 0"
+                 rotation="0 -90 0"
+                 align="center"
+                 wrap-count="20"
+                 depth="2"
+                 height="3.5"
+                 color="black"
+                 scale="0.25 0.25 0.25">
+              </a-text>
+        </a-box>
+      </a-entity>
+
+    </a-scene>
+  </body>
+</html>
