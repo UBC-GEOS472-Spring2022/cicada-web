@@ -427,7 +427,7 @@ var config = {
       alignment: "left",
       hidden: false,
       title: "Temperature and cicadas",
-      //image: "./path/to/image/source.png",
+      image: "./media/legend_may_2021_temp.png",
       description: "Temperature lies at the intersection of cicada biology and human activity. Cicada nymphs emerge to become adults when soil temperatures rise to a threshold of around 18°C, resulting in differences in emergence dates across the country, generally between late April and early June. However, temperature anomalies induced by human activity may disrupt historical schedules. This map shows anomalies in May average temperatures from the 1901-2000 baseline for the year 2021. ",
       location: {
         center: [-85.13961, 39.30208],
@@ -503,7 +503,7 @@ var config = {
       alignment: "left",
       hidden: false,
       title: "2030",
-      image: "https://upload.wikimedia.org/wikipedia/commons/0/0d/Cicada_Brood_II.gif",
+      image: "./media/broodIImarlatt.gif",
       description: "Skipping ahead to 2030, the map on the right is where Brood II, the East Coast Brood, is predicted to emerge in 82 counties. Compare this to the map below, an early map of Brood II emergences published by Marlatt in 1898. Little has changed in our predictions for periodical cicada emergences in over a century of monitoring, but only time will tell whether cicadas remain so reliable in the future.",
       location: {
         center: [-92.85645, 38.47549],
