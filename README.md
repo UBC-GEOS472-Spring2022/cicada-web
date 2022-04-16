@@ -1,7 +1,7 @@
 # cicada-web
 This repository is for cicada citizen science project files hosted on the web.
 
-# Final Project: The Power of Citizen Science for Monitoring Periodical Cicadas
+## Final Project: The Power of Citizen Science for Monitoring Periodical Cicadas
 
 [Link to complete project](https://www.arcgis.com/apps/Cascade/index.html?appid=30dc88ff57f94b26b4f29544945c5de0)
 
