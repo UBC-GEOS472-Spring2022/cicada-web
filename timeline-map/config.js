@@ -24,7 +24,6 @@ var config = {
       alignment: "left",
       hidden: false,
       title: "Predicted cicada emergences for U.S. counties, 2014-2030",
-      //image: './path/to/image/source.png',
       description:"This map shows the next cicada emergence for each county as predicted in 2013, based on over a century of historical data (Liebhold et al., 2013). The number of cicada emergences per county is represented by point size and the volume of sound from clicking on that point.",
       location: {
         center: [-92.85645, 38.47549],
@@ -71,7 +70,7 @@ var config = {
       alignment: "left",
       hidden: false,
       title: "Emergences and broods",
-      image: "https://upload.wikimedia.org/wikipedia/commons/5/56/2004May21-Cicada_%286%29.JPG",
+      image: "./media/emergence.JPG",
       caption: "Cicadas emerging in masses (Greg Hume, CC BY-SA 3.0).",
       description: "Each emergence is a synchronized group of cicadas that reaches adulthood at the same time, and emergences are classed into broods based on the year in which they reach adulthood and their life cycle length (Koenig & Liebhold, 2013). Broods up to XVII live for 17 years, while broods XVIII and above live for 13 years (Cooley, n.d.) The density of cicadas in an emergence has been estimated at between 8,355 and 3,700,000 insects per hectare (Marshall, 2001). The chorus of thousands of cicadas calling simultaneously is an obvious auditory phenomenon for humans living nearby. Yet the counties where one can hear periodical cicadas change significantly from year to year.",
       location: {
