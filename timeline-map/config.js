@@ -1,4 +1,4 @@
-// this code uses the Mapbox template to structure the map into chapters
+// this code uses the Mapbox storytelling template to structure the map into chapters
 // each chapter has text, opacity settings for making layers visible/invisible, and sometimes an image
 // this code uses the Mapbox template to structure the map into chapters, each with text and layers set to turn opaque
 var config = {
