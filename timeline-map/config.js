@@ -503,7 +503,7 @@ var config = {
       alignment: "left",
       hidden: false,
       title: "2030",
-      image: "./media/broodIImarlatt.gif",
+      image: "./media/broodII_marlatt.gif",
       description: "Skipping ahead to 2030, the map on the right is where Brood II, the East Coast Brood, is predicted to emerge in 82 counties. Compare this to the map below, an early map of Brood II emergences published by Marlatt in 1898. Little has changed in our predictions for periodical cicada emergences in over a century of monitoring, but only time will tell whether cicadas remain so reliable in the future.",
       location: {
         center: [-92.85645, 38.47549],
